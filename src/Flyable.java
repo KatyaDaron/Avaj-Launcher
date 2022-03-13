@@ -1,11 +1,5 @@
 public interface Flyable {
-
-    void updateConditions();
-
-    void registerTower(WeatherTower weatherTower);
-
+    public void updateConditions();
+    public void registerTower(WeatherTower weatherTower);
     String getAircraftName();
-
-    Long getAircraftId();
-
 }

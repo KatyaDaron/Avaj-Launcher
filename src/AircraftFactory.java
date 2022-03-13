@@ -6,13 +6,9 @@ public class AircraftFactory {
 
         if (type.equalsIgnoreCase("Helicopter")) {
             return new Helicopter(name, coordinates);
-        }
-
-        else if (type.equalsIgnoreCase("JetPlane")) {
-            return new JetPlane(name,coordinates);
-        }
-
-        else if (type.equalsIgnoreCase("Baloon")) {
+        } else if (type.equalsIgnoreCase("JetPlane")) {
+            return new JetPlane(name, coordinates);
+        } else if (type.equalsIgnoreCase("Baloon")) {
             return new Baloon(name, coordinates);
         }
 

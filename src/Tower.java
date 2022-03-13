@@ -2,21 +2,24 @@ import java.util.ArrayList;
 
 public class Tower {
 
-    ArrayList<Flyable> fly = new ArrayList<>();
+    private ArrayList<Flyable> observers = new ArrayList<>();
+    private ArrayList<Flyable> found = new ArrayList<>();
 
-    void register(Flyable flyable) {
-        fly.add(flyable);
-        System.out.println("Tower says: " + flyable + "#" + flyable.getAircraftName() + "(" + flyable.getAircraftId() + ") registered to weather tower.");
+    public void register(Flyable flyable) {
+        observers.add(flyable);
+        System.out.println("Tower says: " + flyable.getAircraftName() + " registered to weather tower.");
     }
 
-    void unregister(Flyable flyable) {
-        System.out.println("Tower says: " + flyable + "#" + flyable.getAircraftName() + "(" + flyable.getAircraftId() + ") unregistered from weather tower.");
-        fly.remove(flyable);
+    public void unregister(Flyable flyable) {
+        System.out.println(flyable.getAircraftName() + " landing.");
+        System.out.println("Tower says: " + flyable.getAircraftName() + " unregistered from weather tower.");
+        found.add(flyable);
     }
 
     protected void conditionsChanged() {
-        for (Flyable fl : fly) {
-            fl.updateConditions();
+        for (int i = 0; i < observers.size(); i++) {
+           observers.get(i).updateConditions();
         }
+        observers.removeAll(found);
     }
 }

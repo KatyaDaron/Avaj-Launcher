@@ -1,26 +1,26 @@
 public class Aircraft {
 
     protected long id;
-    protected static String name;
-    private long idCounter;
-    protected static Coordinates coordinates;
+    protected String name;
+    protected Coordinates coordinates;
+    private static long idCounter;
 
-
-    public Aircraft(String name, Coordinates coordinates) {
+    protected Aircraft(String name, Coordinates coordinates) {
         this.name = name;
         this.coordinates = coordinates;
-    }
-
-    public static String getName() {
-        return name;
-    }
-
-    public static Coordinates getCoordinates() {
-        return coordinates;
+        this.id = nextId();
     }
 
     private long nextId() {
         idCounter++;
         return idCounter;
+    }
+
+    protected void logMessage(String info) {
+        System.out.println(getAircraftName() + ": " + info);
+    }
+
+    public String getAircraftName() {
+        return this.getClass().getSimpleName() + "#" + this.name + "(" + this.id + ")";
     }
 }

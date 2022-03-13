@@ -1,32 +1,39 @@
 public class Baloon extends Aircraft implements Flyable {
 
-    WeatherTower weatherTower = new WeatherTower();
+    private WeatherTower weatherTower;
 
-    public Baloon(String name, Coordinates coordinates) {
+    protected Baloon(String name, Coordinates coordinates) {
         super(name, coordinates);
     }
 
     @Override
     public void updateConditions() {
+        String weather = weatherTower.getWeather(coordinates);
+        String message = new String();
 
-        //SUN - Longitude increases with 2, Height increases with 4
-        //RAIN - Height decreases with 5
-        //FOG - Height decreases with 3
-        //SNOW - Height decreases with 15
+        if (weather.equalsIgnoreCase("SUN")) {
+            coordinates.changeLongitude(2);
+            coordinates.changeHeight(4);
+            message = "Let's enjoy the good weather and take some pics.";
+        } else if (weather.equalsIgnoreCase("RAIN")) {
+            coordinates.changeHeight(-5);
+            message = "Damn you rain! You messed up my baloon.";
+        } else if (weather.equalsIgnoreCase("FOG")) {
+            coordinates.changeHeight(-3);
+            message = "Where did the fog come from?";
+        } else if (weather.equalsIgnoreCase("SNOW")) {
+            coordinates.changeHeight(-15);
+            message = "It's snowing. We're gonna crash.";
+        }
+        this.logMessage(message);
+        if (coordinates.getHeight() == 0) {
+            weatherTower.unregister(this);
+        }
     }
 
     @Override
     public void registerTower(WeatherTower weatherTower) {
-
-    }
-
-    @Override
-    public String getAircraftName() {
-        return name;
-    }
-
-    @Override
-    public Long getAircraftId() {
-        return id;
+        this.weatherTower = weatherTower;
+        weatherTower.register(this);
     }
 }
