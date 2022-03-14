@@ -33,11 +33,9 @@ public class Coordinates {
     public void changeHeight(int h) {
         if ((this.height + h) <= 0) {
             this.height = 0;
-        }
-        else if ((this.height + h) > 100) {
+        } else if ((this.height + h) > 100) {
             this.height = 100;
-        }
-        else {
+        } else {
             this.height += h;
         }
     }
